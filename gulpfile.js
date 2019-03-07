@@ -14,7 +14,11 @@ var paths = {
     },
     html : {
         src: "src/index.html",
-        dest: "dist"
+        dest: "dist/"
+    },
+    script: {
+        src: "src/**/*.js",
+        dest: "dist/js"
     }
 }
 
@@ -42,17 +46,45 @@ function copyHTML(){
     )
 }
 
+// Lint scripts
+function js() {
+    return gulp
+      .src(["src/js/*.js"])
+      .pipe(gulp.dest("dist/js"))
+      .pipe(browserSync.stream())
+    //   .pipe(plumber())
+    //   .pipe(eslint())
+    //   .pipe(eslint.format())
+    //   .pipe(eslint.failAfterError());
+  }
+  
+  // Transpile, concatenate and minify scripts
+//   function scripts() {
+//     return (
+//       gulp
+//         .src(["./js/**/*.js"])
+//         .pipe(plumber())
+//         // folder only, filename is specified in webpack config
+//         .pipe(gulp.dest(".dist/js/"))
+//         .pipe(browsersync.stream())
+//     );
+//   }
+
 function watch(){
     browserSync.init({
         server: {
-            baseDir: "./src"
+            baseDir: "./dist"
         }
     })
-    gulp.watch(paths.styles.src, style)
-    gulp.watch(paths.html.dest, reload);
+    gulp.watch(paths.styles.src, style);
     gulp.watch(paths.html.src, copyHTML);
+    gulp.watch(paths.script.src, js);
+    gulp.watch(paths.html.dest, reload);
+
+    // gulp.watch("./js/**/*", gulp.series(scriptsLint, scripts));
 }
 
 
 exports.style = style; //allows running from CLI.
 exports.watch = watch;
+exports.js = js;

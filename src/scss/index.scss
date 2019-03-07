@@ -18,6 +18,7 @@ body{
 /* MAIN NAV  */
 .main-nav-wrapper{
     margin: 0 auto;
+    
 }
 .main-nav{
     background-color:orange;
@@ -26,12 +27,15 @@ body{
     grid-template-areas: "left mid right";
     .main-nav-left{
         grid-area:left;
-        font-size:1.5em;
+        font-size:1.2em;
         margin: 0;
-        padding: 0;
+        padding: 1.3em;
         list-style-type: none;
-        li{
-            display:inline-block;
+        .main-nav-left-span{
+            display: none; /*  MAIN NAV SPAN BURGER ICON HIDDEN   */
+        }
+        .main-nav-left-title{
+            color:pink;
         }
     }
     .main-nav-mid{
@@ -59,8 +63,22 @@ body{
     margin:0 auto;
     height: 500px;
     background-color:blue;
-    .main-landing-image{
+    .main-landing-picture{
         grid-area: main;
+        .pictureClass {
+            display:none;
+        }
+        .showedPicture{
+            display: block;
+        }
+        .dotClass{
+            margin: 0 auto;
+            position: absolute;
+            .dot{
+                background-color:red;
+                
+            }
+        }
     }
     .main-landing-article{
         grid-area: article;
